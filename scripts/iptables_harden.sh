@@ -96,7 +96,8 @@ BACKUP_FILE="/tmp/iptables_backup_$(date +%Y%m%d_%H%M%S).rules"
 EXISTING_RULES=$(iptables -L -n -v 2>&1)
 
 # Check if any non-default rules exist
-RULE_COUNT=$(iptables -L INPUT --line-numbers -n 2>/dev/null | grep -c "^[0-9]" || echo 0)
+RULE_COUNT=$(iptables -L INPUT --line-numbers -n 2>/dev/null | grep -c "^[0-9]")
+RULE_COUNT=${RULE_COUNT:-0}
 
 if [ "$RULE_COUNT" -gt 0 ]; then
     echo "Existing rules found:"
